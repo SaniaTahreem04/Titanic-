@@ -53,7 +53,7 @@ st.header("Data Analysis")
 
 # Create readable labels
 data['Survival_Label'] = data['Survived'].map({0: "Not Survived", 1: "Survived"})
-data['Sex_Label'] = data['Sex'].map({0: "Male", 1: "Female"})
+data['Sex_Label'] = data['Sex'].map({1: "Male", 0: "Female"})
 
 col1, col2 = st.columns(2)
 
