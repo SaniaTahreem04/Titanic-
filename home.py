@@ -8,22 +8,20 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 
 # -----------------------
-# PAGE CONFIG
-# -----------------------
-st.set_page_config(
-    page_title="Titanic Survival Prediction",
-    layout="wide"
-)
-
-# -----------------------
 # TITLE SECTION
 # -----------------------
+
 st.title("🚢 Titanic Survival Prediction")
 
-st.image(
-    "https://upload.wikimedia.org/wikipedia/commons/f/fd/RMS_Titanic_3.jpg",
-    use_container_width=True
-)
+# -----------------------
+# PAGE CONFIG
+# -----------------------
+
+# Centered Titanic image
+col1, col2, col3 = st.columns([1,2,1])
+
+with col2:
+    st.image("images/titanic.png", width=400)
 
 
 
@@ -53,14 +51,21 @@ model.fit(x_train,y_train)
 # -----------------------
 st.header("Data Analysis")
 
-col1,col2 = st.columns(2)
+# Create readable labels
+data['Survival_Label'] = data['Survived'].map({0: "Not Survived", 1: "Survived"})
+data['Sex_Label'] = data['Sex'].map({0: "Male", 1: "Female"})
+
+col1, col2 = st.columns(2)
 
 with col1:
 
     st.subheader("Survival Count")
 
-    fig1,ax1 = plt.subplots()
-    sns.countplot(x='Survived',data=data,ax=ax1)
+    fig1, ax1 = plt.subplots()
+    sns.countplot(x='Survival_Label', data=data, ax=ax1)
+
+    ax1.set_xlabel("Survival Status")
+    ax1.set_ylabel("Passenger Count")
 
     st.pyplot(fig1)
 
@@ -68,8 +73,14 @@ with col2:
 
     st.subheader("Survival by Gender")
 
-    fig2,ax2 = plt.subplots()
-    sns.countplot(x='Sex',hue='Survived',data=data,ax=ax2)
+    fig2, ax2 = plt.subplots()
+    sns.countplot(x='Sex_Label', hue='Survival_Label', data=data, ax=ax2)
+
+    ax2.set_xlabel("Gender")
+    ax2.set_ylabel("Passenger Count")
+
+    # Remove legend
+    ax2.legend_.remove()
 
     st.pyplot(fig2)
 
