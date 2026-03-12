@@ -62,27 +62,26 @@ else:
     embarked_value = 2
 
 # Prediction button
+# Prediction button
 if st.button("Predict Survival"):
 
-    prediction = model.predict([[pclass,sex_value,age,fare,embarked_value]])
+    # Make prediction
+    prediction = model.predict([[pclass, sex_value, age, fare, embarked_value]])
 
+    # Show result
     if prediction[0] == 1:
         st.success("🎉 Passenger Survived")
-     
-
     else:
         st.error("❌ Passenger Did Not Survive")
-       
 
-# Metrics table
-st.subheader("Model Evaluation Metrics")
+    # Show metrics table after prediction
+    st.subheader("Model Evaluation Metrics")
 
-metrics_table = pd.DataFrame({
-    "Model Name": ["Logistic Regression"],
-    "Type": ["Classification"],
-    "Score Name": ["Accuracy"],
-    "Score": [round(accuracy, 2)]
-})
+    metrics_table = pd.DataFrame({
+        "Model Name": ["Logistic Regression"],
+        "Type": ["Classification"],
+        "Score Name": ["Accuracy"],
+        "Score": [round(accuracy, 2)]
+    })
 
-
-st.table(metrics_table)
+    st.table(metrics_table)
